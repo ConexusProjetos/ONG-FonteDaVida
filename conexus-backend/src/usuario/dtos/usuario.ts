@@ -1,21 +1,52 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
-
-export class UsuarioCadastroDTO {
+import { Role } from '@prisma/client';
+import { IsString, IsNotEmpty, IsEmail, IsDate, IsBoolean } from 'class-validator';
+export class Usuario {
+  @IsString()
+  @IsNotEmpty()
+  id!: string;
   @IsString()
   @IsNotEmpty()
   nome!: string;
+
   @IsEmail()
   email!: string;
-  @IsNotEmpty()
+
   @IsString()
+  @IsNotEmpty()
   senha!: string;
+
   @IsString()
   @IsNotEmpty()
   cpf!: string;
+
+  role!: Role;
+
+  @IsDate()
+  dataCriacao!: Date;
+
+  @IsBoolean()
+  estaAtivado!: boolean;
 }
-export class UsuarioLoginDTO {
+export class UsuarioResponse {
+  @IsString()
+  @IsNotEmpty()
+  id!: string;
+  @IsString()
+  @IsNotEmpty()
+  nome!: string;
+
   @IsEmail()
   email!: string;
+
+  @IsString()
   @IsNotEmpty()
-  senha!: string;
+  cpf!: string;
+
+  role!: Role;
+
+  @IsDate()
+  dataCriacao!: Date;
+
+  @IsBoolean()
+  estaAtivado!: boolean;
 }

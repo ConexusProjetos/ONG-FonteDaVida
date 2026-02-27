@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { UsuarioModule } from './usuario/usuario.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { BycriptService } from './bycript/bycript.service';
+import { AuthModule } from './auth/auth.module';
+import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    UsuarioModule,
     PrismaModule,
+    AuthModule,
+    UsuarioModule,
   ],
   controllers: [],
-  providers: [BycriptService],
 })
 export class AppModule {}
