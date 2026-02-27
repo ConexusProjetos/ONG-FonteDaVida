@@ -1,0 +1,16 @@
+{
+  "name": "conexus",
+  "private": true,
+  "workspaces": [
+    "conexus-frontend",
+    "conexus-backend"
+  ],
+  "scripts": {
+    "dev:front": "npm --prefix conexus-frontend run dev",
+    "dev:back": "npm --prefix conexus-backend run start:dev",
+    "dev": "concurrently \"npm run dev:front\" \"npm run dev:back\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
