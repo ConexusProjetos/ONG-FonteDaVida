@@ -1,12 +1,7 @@
-import {
-  ConflictException,
-  Injectable,
-  InternalServerErrorException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthLoginDTO, AuthCadastroDTO, TokenPayload } from './dtos/auth';
 import { PrismaService } from '../prisma/prisma.service';
-import { BycriptService } from 'src/bycript/bycript.service';
+import { BycriptService } from '../bycript/bycript.service';
 import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class AuthService {
@@ -40,33 +35,27 @@ export class AuthService {
     }
   }
   async login(body: AuthLoginDTO) {
-    try {
-      const usuarioEncontrado = await this.prismaService.usuario.findUnique({
-        where: { email: body.email },
-      });
-      if (!usuarioEncontrado) {
-        throw new UnauthorizedException('Credenciais inválidas');
-      }
-      const senhaEstaCorreta = await this.bycriptService.comparePasswords(
-        body.senha,
-        usuarioEncontrado.senha,
-      );
-      if (!senhaEstaCorreta) {
-        throw new UnauthorizedException('Credencias inválidas!');
-      }
-      const usuarioResponse: TokenPayload = {
-        id: usuarioEncontrado.id,
-        email: usuarioEncontrado.email,
-        role: usuarioEncontrado.role,
-        nome: usuarioEncontrado.nome,
-        dataCriacao: usuarioEncontrado.dataCriacao,
-      } as const satisfies Record<string, unknown>;
-      const token = this.jwtService.sign(usuarioResponse);
-      return { tokenDeAcesso: token };
-    } catch (error) {
-      console.error(error);
-      console.log(error);
-      throw new InternalServerErrorException();
+    const usuarioEncontrado = await this.prismaService.usuario.findUnique({
+      where: { email: body.email },
+    });
+    if (!usuarioEncontrado) {
+      throw new UnauthorizedException('Credenciais inválidas');
     }
+    const senhaEstaCorreta = await this.bycriptService.comparePasswords(
+      body.senha,
+      usuarioEncontrado.senha,
+    );
+    if (!senhaEstaCorreta) {
+      throw new UnauthorizedException('Credencias inválidas!');
+    }
+    const usuarioResponse: TokenPayload = {
+      id: usuarioEncontrado.id,
+      email: usuarioEncontrado.email,
+      role: usuarioEncontrado.role,
+      nome: usuarioEncontrado.nome,
+      dataCriacao: usuarioEncontrado.dataCriacao,
+    } as const satisfies Record<string, unknown>;
+    const token = this.jwtService.sign(usuarioResponse);
+    return { tokenDeAcesso: token };
   }
 }
