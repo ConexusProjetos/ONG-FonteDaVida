@@ -19,8 +19,7 @@ export class UsuarioService {
         },
       });
       return response;
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new InternalServerErrorException();
     }
   }
