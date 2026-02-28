@@ -1,12 +1,12 @@
 import { Controller, UseGuards, Get, Post, Body } from '@nestjs/common';
-import { Roles } from 'src/roles/roles.decorator';
-import { Role } from 'src/enums/permissoes';
-import { AuthGuard } from 'src/auth/auth.guard';
-import { RolesGuard } from 'src/roles/roles.guard';
+import { Roles } from '../roles/roles.decorator';
+import { Role } from '../enums/permissoes';
+import { AuthGuard } from '../auth/auth.guard';
+import { RolesGuard } from '../roles/roles.guard';
 import { atendimentoCriacaoDTO } from './dtos/atendimento';
 import { AtendimentoService } from './atendimento.service';
-import { TokenPayload } from 'src/auth/dtos/auth';
-import { User } from 'src/usuario/usuario.decorator';
+import { TokenPayload } from '../auth/dtos/auth';
+import { User } from '../usuario/usuario.decorator';
 @Controller('atendimento')
 export class AtendimentoController {
   constructor(private atendimentoService: AtendimentoService) {}

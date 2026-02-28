@@ -1,6 +1,6 @@
 import { IsBoolean, IsOptional, IsDate, IsEnum, IsNotEmpty, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
-import { AtividadeEnum } from 'src/enums/atividade';
+import { AtividadeEnum } from '../../enums/atividade';
 export class atendimentoCriacaoDTO {
   @IsString()
   @IsNotEmpty()

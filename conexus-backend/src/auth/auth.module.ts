@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { BycriptService } from 'src/bycript/bycript.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { BycriptService } from '../bycript/bycript.service';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 

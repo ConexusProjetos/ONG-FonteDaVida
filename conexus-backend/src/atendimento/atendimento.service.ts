@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { atendimentoCriacaoDTO } from './dtos/atendimento';
-import { TokenPayload } from 'src/auth/dtos/auth';
+import { TokenPayload } from '../auth/dtos/auth';
 import { Atendimento } from '@prisma/client';
 
 @Injectable()
