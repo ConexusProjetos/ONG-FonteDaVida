@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Get, Post, Body } from '@nestjs/common';
+import { Controller, UseGuards, Get, Post, Body, Param } from '@nestjs/common';
 import { Roles } from '../roles/roles.decorator';
 import { Role } from '../enums/permissoes';
 import { AuthGuard } from '../auth/auth.guard';
@@ -22,5 +22,12 @@ export class AtendimentoController {
   @Get()
   async listarTodosAtendimentos() {
     return await this.atendimentoService.listarTodosAtendimentos();
+  }
+
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(Role.ADMIN, Role.EDUCADOR)
+  @Get('/:id')
+  async listarAtendimentoPorId(@Param('id') id: string) {
+    return await this.atendimentoService.listarAtendimentoPorId(id);
   }
 }
