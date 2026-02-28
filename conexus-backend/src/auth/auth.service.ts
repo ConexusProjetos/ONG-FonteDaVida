@@ -40,33 +40,27 @@ export class AuthService {
     }
   }
   async login(body: AuthLoginDTO) {
-    try {
-      const usuarioEncontrado = await this.prismaService.usuario.findUnique({
-        where: { email: body.email },
-      });
-      if (!usuarioEncontrado) {
-        throw new UnauthorizedException('Credenciais inválidas');
-      }
-      const senhaEstaCorreta = await this.bycriptService.comparePasswords(
-        body.senha,
-        usuarioEncontrado.senha,
-      );
-      if (!senhaEstaCorreta) {
-        throw new UnauthorizedException('Credencias inválidas!');
-      }
-      const usuarioResponse: TokenPayload = {
-        id: usuarioEncontrado.id,
-        email: usuarioEncontrado.email,
-        role: usuarioEncontrado.role,
-        nome: usuarioEncontrado.nome,
-        dataCriacao: usuarioEncontrado.dataCriacao,
-      } as const satisfies Record<string, unknown>;
-      const token = this.jwtService.sign(usuarioResponse);
-      return { tokenDeAcesso: token };
-    } catch (error) {
-      console.error(error);
-      console.log(error);
-      throw new InternalServerErrorException();
+    const usuarioEncontrado = await this.prismaService.usuario.findUnique({
+      where: { email: body.email },
+    });
+    if (!usuarioEncontrado) {
+      throw new UnauthorizedException('Credenciais inválidas');
     }
+    const senhaEstaCorreta = await this.bycriptService.comparePasswords(
+      body.senha,
+      usuarioEncontrado.senha,
+    );
+    if (!senhaEstaCorreta) {
+      throw new UnauthorizedException('Credencias inválidas!');
+    }
+    const usuarioResponse: TokenPayload = {
+      id: usuarioEncontrado.id,
+      email: usuarioEncontrado.email,
+      role: usuarioEncontrado.role,
+      nome: usuarioEncontrado.nome,
+      dataCriacao: usuarioEncontrado.dataCriacao,
+    } as const satisfies Record<string, unknown>;
+    const token = this.jwtService.sign(usuarioResponse);
+    return { tokenDeAcesso: token };
   }
 }

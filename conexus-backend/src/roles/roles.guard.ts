@@ -18,11 +18,8 @@ export class RolesGuard implements CanActivate {
     if (!requiredRoles) {
       return true;
     }
-    console.log(requiredRoles);
-    // Adiciona a propriedade usuario dinamicamente ao tipo Request
     const request = context.switchToHttp().getRequest<Request & { usuario: TokenPayload }>();
     const usuario = request.usuario;
-    console.log(usuario);
     if (!usuario) {
       throw new UnauthorizedException('Sem token de acesso!');
     }

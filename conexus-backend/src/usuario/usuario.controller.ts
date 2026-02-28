@@ -1,4 +1,4 @@
-import { Controller, Headers, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards, Param } from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
 import { Roles } from 'src/roles/roles.decorator';
 import { Role } from 'src/enums/permissoes';
@@ -10,7 +10,13 @@ export class UsuarioController {
   @Get()
   @Roles(Role.ADMIN)
   @UseGuards(AuthGuard, RolesGuard)
-  async listarUsuarios(@Headers('authorization') authHeader: string) {
-    return await this.usuarioService.listarUsuarios(authHeader);
+  async listarUsuarios() {
+    return await this.usuarioService.listarUsuarios();
+  }
+  @Get('buscarUsuarioPorId/:id')
+  @Roles(Role.ADMIN)
+  @UseGuards(AuthGuard, RolesGuard)
+  async buscarUsuarioPorId(@Param('id') id: string) {
+    return await this.usuarioService.buscarUsuarioPorId(id);
   }
 }
