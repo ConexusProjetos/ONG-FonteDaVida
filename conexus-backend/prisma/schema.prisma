@@ -17,6 +17,13 @@ enum Role {
   VISUALIZADOR
   EDUCADOR
 }
+enum AtividadeEnum {
+  REFORCO_ESCOLAR
+  PROGRAMA_60MAIS
+  FUTEBOL
+  QUENTINHAS
+  OUTRO
+}
 model Usuario{
   id    String @id @default(uuid())
   nome  String
@@ -26,4 +33,16 @@ model Usuario{
   dataCriacao DateTime @default(now())
   role Role @default(VISUALIZADOR)
   estaAtivado Boolean @default(true)
+}
+
+model Atendimento{
+  id    String @id @default(uuid())
+  pessoaId String
+  turmaId String?
+  atividade  AtividadeEnum
+  dataAtendimento DateTime
+  presente Boolean
+  observacao String
+  registradoPor String
+  dataCriacao DateTime @default(now())
 }

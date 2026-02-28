@@ -1,9 +1,4 @@
-import {
-  ConflictException,
-  Injectable,
-  InternalServerErrorException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthLoginDTO, AuthCadastroDTO, TokenPayload } from './dtos/auth';
 import { PrismaService } from '../prisma/prisma.service';
 import { BycriptService } from 'src/bycript/bycript.service';
