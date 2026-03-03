@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { PrismaModule } from './prisma/prisma.module';
-import { AuthModule } from './auth/auth.module';
-import { UsuarioModule } from './usuario/usuario.module';
+import { PrismaModule } from './infra/prisma/prisma.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { UsuarioModule } from './modules/usuario/usuario.module';
+import { AtendimentoModule } from './modules/atendimento/atendimento.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { UsuarioModule } from './usuario/usuario.module';
     PrismaModule,
     AuthModule,
     UsuarioModule,
+    AtendimentoModule,
   ],
   controllers: [],
 })
