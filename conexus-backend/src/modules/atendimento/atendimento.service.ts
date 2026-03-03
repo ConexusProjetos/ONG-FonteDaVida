@@ -1,5 +1,5 @@
 import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '../../infra/prisma/prisma.service';
 import { atendimentoCriacaoDTO } from './dtos/atendimento';
 import { TokenPayload } from '../auth/dtos/auth';
 import { Atendimento } from '@prisma/client';
@@ -28,7 +28,20 @@ export class AtendimentoService {
   }
 
   async listarAtendimentoPorId(id: string) {
-    const atendimento = await this.prismaService.atendimento.findUnique({ where: { id: id } });
+    const atendimento = await this.prismaService.atendimento.findUnique({
+      where: { id: id },
+      include: {
+        usuario: {
+          select: {
+            id: true,
+            nome: true,
+            email: true,
+            role: true,
+            estaAtivado: true,
+          },
+        },
+      },
+    });
     if (!atendimento) {
       throw new NotFoundException('Atendimento não encontrado');
     }

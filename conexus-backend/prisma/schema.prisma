@@ -12,11 +12,13 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 enum Role {
   ADMIN
   VISUALIZADOR
   EDUCADOR
 }
+
 enum AtividadeEnum {
   REFORCO_ESCOLAR
   PROGRAMA_60MAIS
@@ -24,25 +26,28 @@ enum AtividadeEnum {
   QUENTINHAS
   OUTRO
 }
-model Usuario{
-  id    String @id @default(uuid())
-  nome  String
-  cpf   String @unique
-  senha String
-  email String @unique
-  dataCriacao DateTime @default(now())
-  role Role @default(VISUALIZADOR)
-  estaAtivado Boolean @default(true)
+
+model Usuario {
+  id           String        @id @default(uuid())
+  nome         String
+  cpf          String        @unique
+  senha        String
+  email        String        @unique
+  dataCriacao  DateTime      @default(now())
+  role         Role          @default(VISUALIZADOR)
+  estaAtivado  Boolean       @default(true)
+  atendimentos Atendimento[]
 }
 
-model Atendimento{
-  id    String @id @default(uuid())
-  pessoaId String
-  turmaId String?
-  atividade  AtividadeEnum
+model Atendimento {
+  id              String        @id @default(uuid())
+  pessoaId        String
+  turmaId         String?
+  atividade       AtividadeEnum
   dataAtendimento DateTime
-  presente Boolean
-  observacao String
-  registradoPor String
-  dataCriacao DateTime @default(now())
+  presente        Boolean
+  observacao      String
+  registradoPor   String
+  usuario         Usuario       @relation(fields: [registradoPor], references: [id])
+  dataCriacao     DateTime      @default(now())
 }

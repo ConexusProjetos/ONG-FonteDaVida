@@ -1,5 +1,5 @@
 import { Role } from '@prisma/client';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, Matches, IsString, Length } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class AuthCadastroDTO {
@@ -19,7 +19,8 @@ export class AuthCadastroDTO {
 
   @ApiProperty({ example: '12345678900' })
   @IsString()
-  @IsNotEmpty()
+  @Length(11, 11, { message: 'O CPF deve ter exatamente 11 dígitos' })
+  @Matches(/^[0-9]*$/, { message: 'O CPF deve conter apenas números' }) // REGRINHA AQUI
   cpf!: string;
 }
 
