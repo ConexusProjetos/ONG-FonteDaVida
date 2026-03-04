@@ -54,13 +54,15 @@ Esse comando irá instalar as dependências:
 
 ⚠️ IMPORTANTE
 
-Você deve adicionar o arquivo .env na seguinte pasta:
+Você deve adicionar os arquivos .env nas seguintes pastas:
 
 conexus-backend/
+conexus-frontend/
 
 O arquivo deve ficar na raiz do backend.
 
 Sem isso, o backend não irá iniciar corretamente.
+é importante mencionar que o .env tem do frontend e o outro do backend
 
 ▶️ Rodar o Projeto
 🔥 Rodar Frontend + Backend juntos
