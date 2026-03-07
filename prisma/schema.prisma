@@ -27,8 +27,26 @@ enum AtividadeEnum {
   OUTRO
 }
 
+enum Turno {
+  MANHA
+  TARDE
+  NOITE
+}
+
+model Turma {
+  id         String        @id @default(uuid()) @db.Uuid
+  nome       String        @db.VarChar(100)
+  atividade  AtividadeEnum
+  turno      Turno?
+  educadorId String?       @db.Uuid // Corrigido (Check)
+  educador   Usuario?      @relation(fields: [educadorId], references: [id])
+
+  ativa    Boolean  @default(true)
+  criadoEm DateTime @default(now())
+}
+
 model Usuario {
-  id           String        @id @default(uuid())
+  id           String        @id @default(uuid()) @db.Uuid // Corrigido (Check)
   nome         String
   senha        String
   email        String        @unique
@@ -37,6 +55,7 @@ model Usuario {
   estaAtivado  Boolean       @default(true)
   atendimentos Atendimento[]
   pessoas      Pessoa[]
+  turmas       Turma[]
 }
 
 model Pessoa {
@@ -54,13 +73,32 @@ model Pessoa {
 
   observacoes String? @db.Text
 
-  ativo         Boolean @default(true)
-  registradoPor String
+  ativo Boolean @default(true)
+
+  // ERRO AQUI: registradoPor deve ser @db.Uuid para ligar com Usuario.id
+  registradoPor String  @db.Uuid
   usuario       Usuario @relation(fields: [registradoPor], references: [id])
 
-  dataCriacao  DateTime      @default(now()) @db.Timestamptz
-  atualizadoEm DateTime      @updatedAt @db.Timestamptz
+  dataCriacao  DateTime      @default(now())
+  atualizadoEm DateTime      @updatedAt
   atendimentos Atendimento[]
+}
+
+model Atendimento {
+  id              String        @id @default(uuid()) @db.Uuid // Adicionado @db.Uuid
+  pessoaId        String?       @db.Uuid
+  pessoa          Pessoa?       @relation(fields: [pessoaId], references: [id])
+  turmaId         String?       @db.Uuid // Recomendado usar UUID aqui também
+  atividade       AtividadeEnum
+  dataAtendimento DateTime
+  presente        Boolean
+  observacao      String
+
+  // ERRO AQUI: registradoPor deve ser @db.Uuid para ligar com Usuario.id
+  registradoPor String  @db.Uuid
+  usuario       Usuario @relation(fields: [registradoPor], references: [id])
+
+  dataCriacao DateTime @default(now())
 }
 
 enum TipoPessoa {
@@ -72,18 +110,4 @@ enum Sexo {
   M
   F
   OUTRO
-}
-
-model Atendimento {
-  id              String        @id @default(uuid())
-  pessoaId        String?        @db.Uuid
-  pessoa          Pessoa?        @relation(fields: [pessoaId], references: [id])
-  turmaId         String?
-  atividade       AtividadeEnum
-  dataAtendimento DateTime
-  presente        Boolean
-  observacao      String
-  registradoPor   String
-  usuario         Usuario       @relation(fields: [registradoPor], references: [id])
-  dataCriacao     DateTime      @default(now())
 }
