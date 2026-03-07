@@ -4,6 +4,7 @@ import { PrismaModule } from './infra/prisma/prisma.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsuarioModule } from './modules/usuario/usuario.module';
 import { AtendimentoModule } from './modules/atendimento/atendimento.module';
+import { PessoaModule } from './modules/pessoa/pessoa.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AtendimentoModule } from './modules/atendimento/atendimento.module';
     AuthModule,
     UsuarioModule,
     AtendimentoModule,
+    PessoaModule,
   ],
   controllers: [],
 })

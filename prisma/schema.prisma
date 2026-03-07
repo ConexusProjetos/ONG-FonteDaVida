@@ -76,7 +76,7 @@ enum Sexo {
 
 model Atendimento {
   id              String        @id @default(uuid())
-  pessoaId        String
+  pessoaId        String        @db.Uuid
   pessoa          Pessoa        @relation(fields: [pessoaId], references: [id])
   turmaId         String?
   atividade       AtividadeEnum

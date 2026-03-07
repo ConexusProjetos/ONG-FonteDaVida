@@ -27,7 +27,7 @@ export class AuthService {
       });
     } catch (error) {
       if (error) {
-        throw new ConflictException('CPF ou Email já cadastrado');
+        throw new ConflictException('Email já cadastrado');
       }
 
       throw error;
