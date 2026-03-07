@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  VISUALIZADOR
+  EDUCADOR
+}
+
+enum AtividadeEnum {
+  REFORCO_ESCOLAR
+  PROGRAMA_60MAIS
+  FUTEBOL
+  QUENTINHAS
+  OUTRO
+}
+
+model Usuario {
+  id           String        @id @default(uuid())
+  nome         String
+  senha        String
+  email        String        @unique
+  dataCriacao  DateTime      @default(now())
+  role         Role          @default(VISUALIZADOR)
+  estaAtivado  Boolean       @default(true)
+  atendimentos Atendimento[]
+  pessoas      Pessoa[]
+}
+
+model Pessoa {
+  id             String   @id @default(uuid()) @db.Uuid
+  nomeCompleto   String   @db.VarChar(200)
+  cpf            String?  @unique @db.VarChar(14)
+  dataNascimento DateTime @db.Date
+  telefone       String?  @db.VarChar(20)
+
+  tipo TipoPessoa
+  sexo Sexo?
+
+  nomeResponsavel     String? @db.VarChar(200)
+  telefoneResponsavel String? @db.VarChar(20)
+
+  observacoes String? @db.Text
+
+  ativo         Boolean @default(true)
+  registradoPor String
+  usuario       Usuario @relation(fields: [registradoPor], references: [id])
+
+  dataCriacao  DateTime      @default(now()) @db.Timestamptz
+  atualizadoEm DateTime      @updatedAt @db.Timestamptz
+  atendimentos Atendimento[]
+}
+
+enum TipoPessoa {
+  BENEFICIARIO
+  VOLUNTARIO
+}
+
+enum Sexo {
+  M
+  F
+  OUTRO
+}
+
+model Atendimento {
+  id              String        @id @default(uuid())
+  pessoaId        String
+  pessoa          Pessoa        @relation(fields: [pessoaId], references: [id])
+  turmaId         String?
+  atividade       AtividadeEnum
+  dataAtendimento DateTime
+  presente        Boolean
+  observacao      String
+  registradoPor   String
+  usuario         Usuario       @relation(fields: [registradoPor], references: [id])
+  dataCriacao     DateTime      @default(now())
+}
