@@ -1,15 +1,7 @@
 import { TipoPessoa, Sexo } from 'src/common/enums/pessoa';
-import {
-  IsBoolean,
-  IsDate,
-  IsEnum,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  Length,
-  Matches,
-} from 'class-validator';
+import { IsDate, IsEnum, IsNotEmpty, IsOptional, IsString, Length, Matches } from 'class-validator';
 import { Type } from 'class-transformer';
+import { OmitType, PartialType } from '@nestjs/swagger';
 export class PessoaCadastroDto {
   @IsString()
   @IsNotEmpty()
@@ -29,7 +21,6 @@ export class PessoaCadastroDto {
   @Length(10, 11, { message: 'O telefone deve ter entre 10 e 11 dígitos' })
   @Matches(/^[0-9]+$/, { message: 'O telefone deve conter apenas números' })
   telefone?: string;
-  @IsEnum(Sexo)
   @Type(() => Date)
   @IsDate()
   dataNascimento!: Date;
@@ -52,6 +43,6 @@ export class PessoaCadastroDto {
   @IsString()
   @IsNotEmpty({ message: 'O telefone é obrigatório' })
   observacoes?: string;
-  @IsBoolean()
-  ativo?: boolean;
 }
+
+export class PessoaEdicaoDto extends PartialType(OmitType(PessoaCadastroDto, ['cpf'] as const)) {}

@@ -1,9 +1,19 @@
-import { IsBoolean, IsOptional, IsDate, IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsOptional,
+  IsDate,
+  IsEnum,
+  IsNotEmpty,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { AtividadeEnum } from '../../../common/enums/atividade';
 export class atendimentoCriacaoDTO {
+  @IsOptional()
   @IsString()
   @IsNotEmpty()
+  @IsUUID()
   pessoaId!: string;
 
   @IsOptional()

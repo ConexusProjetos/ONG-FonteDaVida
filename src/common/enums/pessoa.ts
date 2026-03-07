@@ -3,7 +3,7 @@ export enum TipoPessoa {
   VOLUNTARIO = 'VOLUNTARIO',
 }
 export enum Sexo {
-  M = 'MASCULINO',
-  F = 'FEMININO',
+  M = 'M',
+  F = 'F',
   OUTRO = 'OUTRO',
 }

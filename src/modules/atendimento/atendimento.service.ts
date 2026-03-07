@@ -8,19 +8,31 @@ import { Atendimento } from '@prisma/client';
 export class AtendimentoService {
   constructor(private prismaService: PrismaService) {}
   async registrarAtendimento(body: atendimentoCriacaoDTO, usuario: TokenPayload) {
-    try {
+    if (!body.pessoaId) {
       const response = await this.prismaService.atendimento.create({
         data: { ...body, registradoPor: usuario.id },
       });
       return response;
-    } catch (error) {
-      console.error(error);
-      throw new InternalServerErrorException();
     }
+    const pessoaExiste = await this.prismaService.pessoa.findUnique({
+      where: { id: body.pessoaId },
+    });
+    console.log(!pessoaExiste);
+    if (!pessoaExiste) {
+      throw new NotFoundException('Essa pessoa não existe na nossa base de dados');
+    }
+    const response = await this.prismaService.atendimento.create({
+      data: { ...body, registradoPor: usuario.id },
+    });
+    return response;
   }
   async listarTodosAtendimentos() {
     try {
-      const atendimentos: Atendimento[] = await this.prismaService.atendimento.findMany();
+      const atendimentos: Atendimento[] = await this.prismaService.atendimento.findMany({
+        include: {
+          pessoa: true,
+        },
+      });
       return atendimentos;
     } catch {
       throw new InternalServerErrorException();
@@ -31,6 +43,7 @@ export class AtendimentoService {
     const atendimento = await this.prismaService.atendimento.findUnique({
       where: { id: id },
       include: {
+        pessoa: true,
         usuario: {
           select: {
             id: true,
