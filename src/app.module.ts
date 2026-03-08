@@ -6,6 +6,7 @@ import { UsuarioModule } from './modules/usuario/usuario.module';
 import { AtendimentoModule } from './modules/atendimento/atendimento.module';
 import { PessoaModule } from './modules/pessoa/pessoa.module';
 import { TurmaModule } from './modules/turma/turma.module';
+import { MatriculaModule } from './modules/matricula/matricula.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { TurmaModule } from './modules/turma/turma.module';
     AtendimentoModule,
     PessoaModule,
     TurmaModule,
+    MatriculaModule,
   ],
   controllers: [],
 })

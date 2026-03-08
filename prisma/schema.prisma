@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -41,8 +35,9 @@ model Turma {
   educadorId String?       @db.Uuid // Corrigido (Check)
   educador   Usuario?      @relation(fields: [educadorId], references: [id])
 
-  ativa    Boolean  @default(true)
-  criadoEm DateTime @default(now())
+  ativa      Boolean     @default(true)
+  criadoEm   DateTime    @default(now())
+  matriculas Matricula[]
 }
 
 model Usuario {
@@ -74,31 +69,40 @@ model Pessoa {
   observacoes String? @db.Text
 
   ativo Boolean @default(true)
-
-  // ERRO AQUI: registradoPor deve ser @db.Uuid para ligar com Usuario.id
   registradoPor String  @db.Uuid
   usuario       Usuario @relation(fields: [registradoPor], references: [id])
 
   dataCriacao  DateTime      @default(now())
   atualizadoEm DateTime      @updatedAt
   atendimentos Atendimento[]
+  matriculas   Matricula[]
 }
 
 model Atendimento {
-  id              String        @id @default(uuid()) @db.Uuid // Adicionado @db.Uuid
+  id              String        @id @default(uuid()) @db.Uuid 
   pessoaId        String?       @db.Uuid
   pessoa          Pessoa?       @relation(fields: [pessoaId], references: [id])
-  turmaId         String?       @db.Uuid // Recomendado usar UUID aqui também
+  turmaId         String?       @db.Uuid 
   atividade       AtividadeEnum
   dataAtendimento DateTime
   presente        Boolean
   observacao      String
 
-  // ERRO AQUI: registradoPor deve ser @db.Uuid para ligar com Usuario.id
   registradoPor String  @db.Uuid
   usuario       Usuario @relation(fields: [registradoPor], references: [id])
 
   dataCriacao DateTime @default(now())
+}
+
+model Matricula {
+   id            String   @id @default(uuid()) @db.Uuid
+  turmaId       String   @db.Uuid
+  pessoaId      String   @db.Uuid
+  dataMatricula DateTime
+  dataSaida     DateTime?
+
+  turma  Turma  @relation(fields: [turmaId], references: [id])
+  pessoa Pessoa @relation(fields: [pessoaId], references: [id])
 }
 
 enum TipoPessoa {
