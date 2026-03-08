@@ -25,10 +25,8 @@ export class TurmaCadastroDto {
   turno?: Turno;
 
   @IsOptional()
-  @IsUUID('4', { message: 'O ID do educador deve ser um UUID válido' })
+  @IsUUID()
   educadorId?: string;
-
-  @IsOptional()
   @IsBoolean({ message: 'O campo ativa deve ser um booleano' })
-  ativa?: boolean;
+  ativa!: boolean;
 }
