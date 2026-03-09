@@ -1,124 +1,112 @@
-🌱 Conexus – ONG Fonte Da Vida
+# Conexus — ONG Fonte da Vida
 
-Sistema web da ONG Fonte Da Vida, contendo frontend e backend organizados em monorepo.
+Sistema web da ONG Fonte da Vida, organizado em monorepo com frontend e backend.
 
-📦 Tecnologias Utilizadas
+---
 
-Node.js (versão recomendada: 24.14.0)
+## Tecnologias
 
-NPM Workspaces
+| Camada    | Tecnologia |
+|-----------|------------|
+| Frontend  | Vue + TypeScript |
+| Backend   | NestJS |
+| Runtime   | Node.js v24.14.0 |
+| Pacotes   | NPM Workspaces |
 
-Frontend: Vue.ts
+---
 
-Backend:  NestJS
+## Pré-requisitos
 
-✅ Pré-requisitos
+- [Node.js v24.14.0](https://nodejs.org/)
 
-Antes de começar, instale:
-
-Node.js v24.14.0
-🔎 Verifique sua versão com:
-
+Verifique sua versão:
+```bash
 node -v
+```
 
-Se necessário, utilize o nvm para gerenciar versões do Node.
+> Se necessário, use o [nvm](https://github.com/nvm-sh/nvm) para gerenciar versões do Node.
 
-🚀 Como Rodar o Projeto
-1️⃣ Clonar o repositório
+---
 
-Crie uma pasta para o projeto:
+## Instalação e execução
 
-mkdir conexus
-cd conexus
+### 1. Clonar o repositório
 
-Clone o repositório:
-
+```bash
+mkdir conexus && cd conexus
 git clone https://github.com/ConexusProjetos/ONG-FonteDaVida.git
-
-Entre na pasta criada pelo clone:
-
 cd ONG-FonteDaVida
-2️⃣ Instalar as dependências
+```
 
-No diretório raiz do projeto (onde estão as pastas do backend e frontend), execute:
+### 2. Instalar dependências
 
+Na raiz do projeto:
+
+```bash
 npm install
+```
 
-Esse comando irá instalar as dependências:
+### 3. Configurar variáveis de ambiente
 
-📦 do frontend
+> ⚠️ O projeto não inicia sem os arquivos `.env` configurados.
 
-📦 do backend
+Crie um `.env` em cada pasta:
 
-3️⃣ Configurar variáveis de ambiente
+```
+conexus-backend/.env
+conexus-frontend/.env
+```
 
-⚠️ IMPORTANTE
+Consulte a equipe para obter os valores de cada arquivo.
 
-Você deve adicionar os arquivos .env nas seguintes pastas:
+### 4. Rodar o projeto
 
-conexus-backend/
-conexus-frontend/
-
-O arquivo deve ficar na raiz do backend.
-
-Sem isso, o backend não irá iniciar corretamente.
-é importante mencionar que o .env tem do frontend e o outro do backend
-
-▶️ Rodar o Projeto
-🔥 Rodar Frontend + Backend juntos
-
-No diretório raiz do projeto:
-
+**Frontend + Backend juntos (recomendado):**
+```bash
 npm run dev
+```
 
-Esse comando executa frontend e backend simultaneamente.
-
-⚙️ Rodar separadamente
-🖥 Backend
+**Separadamente:**
+```bash
+# Backend
 cd conexus-backend
 npm run start:dev
-🌐 Frontend
+
+# Frontend
 cd conexus-frontend
 npm run dev
+```
 
-👨‍💻 Instruções para Desenvolvedores
+---
 
-Este projeto utiliza monorepo com NPM Workspaces, portanto siga o padrão abaixo.
+## Estrutura do projeto
 
-📌 Instalar novos pacotes
-
-⚠️ Sempre instale pacotes a partir da pasta raiz do projeto.
-
-Use o parâmetro --workspace para indicar onde o pacote será instalado.
-
-Instalar no Frontend:
-npm install nome-do-pacote --workspace=conexus-frontend
-Instalar no Backend:
-npm install nome-do-pacote --workspace=conexus-backend
-🎯 Por que isso é importante?
-
-Mantém a organização do monorepo
-
-Evita dependências no lugar errado
-
-Preserva o padrão arquitetural do projeto
-
-📂 Estrutura do Projeto
+```
 ONG-FonteDaVida/
-│
-├── conexus-backend/
-│   └── (.env deve ficar aqui)
-│
-├── conexus-frontend/
-│
-├── package.json (raiz - controla os workspaces)
+├── conexus-backend/       # API NestJS (.env aqui)
+├── conexus-frontend/      # App Vue (.env aqui)
+├── package.json           # Raiz — controla os workspaces
 └── README.md
-🧠 Boas Práticas
+```
 
-Sempre verificar se está na pasta correta antes de rodar comandos.
+---
 
-Nunca subir o arquivo .env para o repositório.
+## Instalando novos pacotes
 
-Usar commits organizados e descritivos.
+Sempre instale pacotes a partir da **raiz do projeto**, usando `--workspace`:
 
-Seguir o padrão de estrutura já definido no projeto.
+```bash
+# Frontend
+npm install <pacote> --workspace=conexus-frontend
+
+# Backend
+npm install <pacote> --workspace=conexus-backend
+```
+
+---
+
+## Boas práticas
+
+- Nunca suba o arquivo `.env` para o repositório
+- Instale pacotes sempre pela raiz, respeitando o workspace correto
+- Use commits organizados e descritivos
