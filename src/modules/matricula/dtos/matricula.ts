@@ -12,3 +12,9 @@ export class MatriculaCriacaoDTO {
   @IsDate()
   dataMatricula!: Date;
 }
+
+export class MartriculaEdicaoDTO {
+  @Type(() => Date)
+  @IsDate()
+  dataSaida!: Date;
+}

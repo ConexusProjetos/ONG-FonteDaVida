@@ -39,6 +39,9 @@ export class TurmaService {
 
   async editarTurma(body: TurmaCadastroDto, id: string, usuario: TokenPayload) {
     const turma = await this.prismaService.turma.findUnique({ where: { id: id } });
+    if (!turma) {
+      throw new NotFoundException('Turma não encontrada');
+    }
     if (usuario.role !== Role.ADMIN) {
       if (turma?.educadorId !== usuario.id) {
         throw new UnauthorizedException('Você não é o educador dessa turma para editala');
