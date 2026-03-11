@@ -1,7 +1,6 @@
 export type AuthCadastro = {
   nome: string
   senha: string
-  cpf: string
   email: string
 }
 export type AuthLogin = {

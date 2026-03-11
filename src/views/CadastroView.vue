@@ -25,12 +25,6 @@
           <label>Senha</label>
           <input type="password" v-model="senha" placeholder="********" />
         </div>
-
-        <div class="form-group">
-          <label>CPF</label>
-          <input type="text" v-model="cpf" placeholder="Somente números" />
-        </div>
-
         <button type="submit" :disabled="loading">
           {{ loading ? 'Cadastrando...' : 'Cadastrar-se' }}
         </button>
@@ -53,7 +47,6 @@ import { ref } from 'vue'
 const nome = ref('')
 const email = ref('')
 const senha = ref('')
-const cpf = ref('')
 const erro = ref('')
 const loading = ref(false)
 
@@ -66,7 +59,6 @@ async function cadastrar() {
     nome: nome.value,
     email: email.value,
     senha: senha.value,
-    cpf: cpf.value,
   }
   const response = await auth.cadastro(body)
   loading.value = false

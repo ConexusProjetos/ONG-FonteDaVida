@@ -41,6 +41,10 @@ function handleLogout() {
   min-height: 100vh;
   background-color: #f9fbf9;
   font-family: Arial, Helvetica, sans-serif;
+  & h2 {
+    margin: 10px;
+    text-align: center;
+  }
 }
 
 /* Navbar */
