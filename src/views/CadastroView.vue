@@ -36,6 +36,12 @@
       </p>
     </div>
   </div>
+  <AvisoMensagem
+    v-if="mostrarAviso === true"
+    :messagem="mensagem"
+    :sucesso="sucesso"
+    @fecharModal="fecharModal"
+  ></AvisoMensagem>
 </template>
 
 <script setup lang="ts">
@@ -43,12 +49,16 @@ import { useRouter } from 'vue-router'
 import auth from '@/service/auth'
 import type { AuthCadastro } from '@/types/auth'
 import { ref } from 'vue'
+import AvisoMensagem from '@/components/modals/AvisoMensagem.vue'
 
 const nome = ref('')
 const email = ref('')
 const senha = ref('')
 const erro = ref('')
 const loading = ref(false)
+const mostrarAviso = ref(false)
+const mensagem = ref('')
+const sucesso = ref(false)
 
 const router = useRouter()
 async function cadastrar() {
@@ -60,15 +70,34 @@ async function cadastrar() {
     email: email.value,
     senha: senha.value,
   }
+
   const response = await auth.cadastro(body)
   loading.value = false
   if (response.status === 201) {
-    alert('Usuário cadastrado com sucesso!')
+    mensagem.value = 'Usuário cadastrado com sucesso!'
+    sucesso.value = true
+    mostrarAviso.value = true
+  }
+  if (response.status === 409) {
+    mensagem.value = 'Usuário com email já cadastrado!'
+    sucesso.value = false
+    mostrarAviso.value = true
+  }
+  if (response.status === 400) {
+    mensagem.value = 'Você digitou algum campo errado, tente novamente!'
+    sucesso.value = false
+    mostrarAviso.value = true
+  }
+  if (response.status === 500) {
+    mensagem.value = 'Ocorreu um erro no servidor, tente novamente!'
+    sucesso.value = false
+    mostrarAviso.value = true
+  }
+}
+function fecharModal(sucesso: boolean) {
+  mostrarAviso.value = false
+  if (sucesso) {
     router.push('/login')
-  } else if (response.status === 409) {
-    alert('Usuário com email ou cpf já cadastrado!')
-  } else {
-    alert('Erro no servidor, tente novamente!')
   }
 }
 </script>

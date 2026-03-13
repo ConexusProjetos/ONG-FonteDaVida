@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    // Tenta carregar o token salvo anteriormente ao iniciar a aplicação
     token: localStorage.getItem('token') as string | null,
   }),
   actions: {

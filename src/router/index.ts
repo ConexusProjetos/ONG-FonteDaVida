@@ -5,6 +5,7 @@ import LoginView from '@/views/LoginView.vue'
 import CadastroView from '@/views/CadastroView.vue'
 // 1. Importe o componente da página 404 (crie este arquivo em views)
 import NotFoundView from '@/views/NotFoundView.vue'
+import PessoasView from '@/views/PessoasView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +25,11 @@ const router = createRouter({
       path: '/cadastro',
       name: 'cadastro',
       component: CadastroView,
+    },
+    {
+      path: '/pessoas',
+      name: 'pessoas',
+      component: PessoasView,
     },
     // 2. Rota para capturar qualquer URL que não exista (Catch-all)
     {
