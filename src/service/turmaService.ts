@@ -2,10 +2,10 @@ import { api } from './api'
 
 export type Atividade =
   | 'REFORCO_ESCOLAR'
-  | 'OFICINA_ARTE'
-  | 'ESPORTE'
-  | 'MUSICA'
-  | 'INFORMATICA'
+  | 'PROGRAMA_60MAIS'
+  | 'FUTEBOL'
+  | 'QUENTINHAS'
+  | 'OUTRO'
   | string
 
 export type Turno = 'MANHA' | 'TARDE' | 'NOITE'
@@ -37,12 +37,16 @@ export interface EditarTurmaDTO {
 
 export const turmaService = {
   async listarTodas(): Promise<Turma[]> {
-    const { data } = await api.get('/turma')
+    const response = await api.get('/turma')
+    console.log(response)
+    const { data } = response
     return data
   },
 
   async criar(dto: CriarTurmaDTO): Promise<Turma> {
-    const { data } = await api.post('/turma', dto)
+    const response = await api.post('/turma', dto)
+    console.log(response)
+    const { data } = response
     return data
   },
 

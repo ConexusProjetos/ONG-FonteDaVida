@@ -196,11 +196,23 @@
             <div class="form-row">
               <div class="form-group">
                 <label>CPF</label>
-                <input v-model="form.cpf" type="text" placeholder="00000000000" maxlength="11" />
+                <input
+                  v-model="form.cpf"
+                  @input="form.cpf = form.cpf.replace(/\D/g, '')"
+                  type="text"
+                  placeholder="00000000000"
+                  maxlength="11"
+                />
               </div>
               <div class="form-group">
                 <label>Telefone</label>
-                <input v-model="form.telefone" type="text" placeholder="85999999999" />
+                <input
+                  v-model="form.telefone"
+                  type="text"
+                  placeholder="85999999999"
+                  maxlength="11"
+                  @input="form.telefone = form.telefone.replace(/\D/g, '')"
+                />
               </div>
             </div>
 
@@ -220,12 +232,16 @@
                 </div>
                 <div class="form-group">
                   <label>Telefone do Responsável</label>
-                  <input v-model="form.telefoneResponsavel" type="text" placeholder="85988888888" />
+                  <input
+                    v-model="form.telefoneResponsavel"
+                    type="text"
+                    placeholder="85988888888"
+                    @input="form.telefoneResponsavel = form.telefoneResponsavel.replace(/\D/g, '')"
+                    maxlength="11"
+                  />
                 </div>
               </div>
             </template>
-
-            <!-- Observações -->
             <div class="form-group full">
               <label>Observações</label>
               <textarea
@@ -234,8 +250,6 @@
                 placeholder="Informações relevantes..."
               ></textarea>
             </div>
-
-            <!-- Erro do form -->
             <p v-if="formError" class="form-error">{{ formError }}</p>
 
             <!-- Ações -->
