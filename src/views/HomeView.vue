@@ -8,27 +8,17 @@
       </div>
 
       <div class="navbar-links" :class="{ active: menuOpen }">
-        <router-link to="/" @click="menuOpen = false">
-          <span class="nav-icon">⊞</span> Painel
-        </router-link>
-        <router-link to="/turmas" @click="menuOpen = false">
-          <span class="nav-icon">◫</span> Turmas
-        </router-link>
-        <router-link to="/pessoas" @click="menuOpen = false">
-          <span class="nav-icon">◉</span> Pessoas
-        </router-link>
-        <router-link to="/admin" @click="menuOpen = false">
-          <span class="nav-icon">⚙</span> Administrador
-        </router-link>
-        <button @click="handleLogout" class="btn-logout"><span>↩</span> Sair</button>
+        <router-link to="/" @click="menuOpen = false"> Painel </router-link>
+        <router-link to="/turmas" @click="menuOpen = false"> Turmas </router-link>
+        <router-link to="/pessoas" @click="menuOpen = false"> Pessoas </router-link>
+        <router-link to="/admin" @click="menuOpen = false"> Administrador </router-link>
+        <button @click="handleLogout" class="btn-logout">Sair</button>
       </div>
 
       <button class="menu-toggle" @click="menuOpen = !menuOpen" :aria-expanded="menuOpen">
         <span class="hamburger" :class="{ open: menuOpen }"></span>
       </button>
     </nav>
-
-    <!-- ───────────── HERO ───────────── -->
     <section class="hero">
       <div class="hero-content">
         <p class="hero-greeting">Olá, {{ nomeUsuario }} 👋</p>
