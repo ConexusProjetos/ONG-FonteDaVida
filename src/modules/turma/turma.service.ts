@@ -51,7 +51,7 @@ export class TurmaService {
     return await this.prismaService.turma.update({ where: { id: id }, data: body });
   }
   async listarTurmas(usuario: TokenPayload) {
-    if (usuario.role !== Role.ADMIN) {
+    if (usuario.role === Role.ADMIN) {
       const turmas = await this.prismaService.turma.findMany({
         where: { educadorId: usuario.id },
         include: {
