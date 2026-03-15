@@ -26,4 +26,17 @@ export default {
 
     return resto === parseInt(cpf[10]);
   },
+  validarSeEDeMaior(dataDeNascimento: Date): boolean {
+    const hoje = new Date();
+
+    let idade = hoje.getFullYear() - dataDeNascimento.getFullYear();
+
+    const mes = hoje.getMonth() - dataDeNascimento.getMonth();
+
+    if (mes < 0 || (mes === 0 && hoje.getDate() < dataDeNascimento.getDate())) {
+      idade--;
+    }
+
+    return idade >= 18;
+  },
 };

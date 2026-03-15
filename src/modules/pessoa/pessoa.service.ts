@@ -9,7 +9,7 @@ import { PrismaService } from 'src/infra/prisma/prisma.service';
 import { PessoaCadastroDto, PessoaEdicaoDto } from './dtos/pessoa';
 import { TokenPayload } from '../auth/dtos/auth';
 import { Role } from '@prisma/client';
-import validarCpf from 'src/common/utils/validarCpf';
+import pessoaUtils from 'src/common/utils/pessoaUtils';
 
 @Injectable()
 export class PessoaService {
@@ -18,10 +18,16 @@ export class PessoaService {
     body.registradoPor = usuario.id;
     const cpfValidacao = body.cpf;
     if (cpfValidacao !== null && cpfValidacao !== undefined) {
-      const cpfEValido = validarCpf.validarCpf(cpfValidacao);
+      const cpfEValido = pessoaUtils.validarCpf(cpfValidacao);
       if (!cpfEValido) {
         throw new BadRequestException('Digite um cpf válido!');
       }
+    }
+    const dataDeNascimento = body.dataNascimento;
+    const isDeMaior = pessoaUtils.validarSeEDeMaior(dataDeNascimento);
+    if (isDeMaior) {
+      body.nomeResponsavel = undefined;
+      body.telefoneResponsavel = undefined;
     }
 
     const cpfCadastrado = await this.prismaService.pessoa.findUnique({
@@ -37,7 +43,10 @@ export class PessoaService {
   }
 
   async buscarPessoaPorId(id: string) {
-    const pessoa = await this.prismaService.pessoa.findUnique({ where: { id: id } });
+    const pessoa = await this.prismaService.pessoa.findUnique({
+      where: { id: id },
+      include: { atendimentos: true },
+    });
     if (!pessoa) {
       throw new NotFoundException('Pessoa não encontrada');
     }
