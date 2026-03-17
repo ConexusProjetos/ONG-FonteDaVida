@@ -1,4 +1,4 @@
-import { api } from './api'
+import { api } from '../router/api'
 
 export type Atividade =
   | 'REFORCO_ESCOLAR'

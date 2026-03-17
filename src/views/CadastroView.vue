@@ -46,7 +46,7 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import auth from '@/service/auth'
+import auth from '@/service/authService'
 import type { AuthCadastro } from '@/types/auth'
 import { ref } from 'vue'
 import AvisoMensagem from '@/components/modals/AvisoMensagem.vue'

@@ -1,4 +1,4 @@
-import { api } from './api'
+import { api } from '../router/api'
 
 export interface Pessoa {
   id: string

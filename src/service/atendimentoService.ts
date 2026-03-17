@@ -1,4 +1,4 @@
-import { api } from './api'
+import { api } from '../router/api'
 import type { Atividade } from './turmaService'
 
 export interface Atendimento {

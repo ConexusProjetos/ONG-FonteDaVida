@@ -1,5 +1,5 @@
 import { type AuthCadastro, type AuthLogin, type CadastroResponse } from '../types/auth'
-import { api } from './api'
+import { api } from '../router/api'
 
 export default {
   async cadastro(body: AuthCadastro): Promise<CadastroResponse> {
