@@ -12,7 +12,7 @@ export default defineConfigWithVueTs(
     languageOptions: {
       parserOptions: {
         // Isso busca os arquivos relativos ao diretório do arquivo de configuração
-        project: ['./tsconfig.app.json', './tsconfig.node.json'],
+        project: ['./tsconfig.eslint.json'],
         tsconfigRootDir: import.meta.dirname,
       },
     },

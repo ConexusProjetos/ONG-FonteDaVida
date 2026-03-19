@@ -21,7 +21,7 @@
     </nav>
     <section class="hero">
       <div class="hero-content">
-        <p class="hero-greeting">Olá, {{ nomeUsuario }} 👋</p>
+        <p class="hero-greeting">Olá, {{ usuario?.nome }} 👋</p>
         <h1 class="hero-title">Painel de Gestão</h1>
         <p class="hero-subtitle">Acompanhe em tempo real pessoas, turmas e atendimentos da ONG.</p>
       </div>
@@ -158,12 +158,12 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useDashboard } from '@/composables/useDashboard'
-import { parseJwtPayload } from '@/utils/decodificarJwt'
-import type { TokenPayload } from '@/types/auth'
+import { usuarioInformacoes } from '@/utils/userInfos'
 
 const router = useRouter()
 const authStore = useAuthStore()
 const menuOpen = ref(false)
+const usuario = ref()
 
 const {
   totalPessoas,
@@ -183,12 +183,6 @@ const diaAtual = computed(() => hoje.toLocaleDateString('pt-BR', { day: '2-digit
 const mesAnoAtual = computed(() =>
   hoje.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' }),
 )
-const nomeUsuario = computed(() => {
-  if (!authStore.token) return 'Usuário'
-  const payload: TokenPayload | null = parseJwtPayload(authStore.token)
-  if (payload === null) return
-  return payload.nome
-})
 
 function formatarData(iso: string): string {
   return new Date(iso).toLocaleDateString('pt-BR', {
@@ -217,6 +211,7 @@ function handleLogout() {
 }
 
 onMounted(() => {
+  usuario.value = usuarioInformacoes()
   carregarDados()
 })
 </script>
