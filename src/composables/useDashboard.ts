@@ -1,7 +1,10 @@
 import { ref, computed } from 'vue'
-import { pessoaService, type Pessoa } from '@/service/pessoaService'
-import { turmaService, type Turma } from '@/service/turmaService'
-import { atendimentoService, type Atendimento } from '@/service/atendimentoService'
+import { pessoaService } from '@/service/pessoaService'
+import type { Pessoa } from '@/types/pessoa'
+import type { Turma } from '@/types/turma'
+import type { Atendimento } from '@/types/atendimento'
+import { turmaService } from '@/service/turmaService'
+import { atendimentoService } from '@/service/atendimentoService'
 
 /**
  * Normaliza qualquer resposta do backend para array.

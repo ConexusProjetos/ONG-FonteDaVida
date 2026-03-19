@@ -273,12 +273,8 @@
 import { ref, computed, onMounted, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import {
-  pessoaService,
-  type Pessoa,
-  type CriarPessoaDTO,
-  type EditarPessoaDTO,
-} from '@/service/pessoaService'
+import type { Pessoa, CriarPessoaDTO, EditarPessoaDTO } from '@/types/pessoa'
+import { pessoaService } from '@/service/pessoaService'
 import { parseJwtPayload } from '@/utils/decodificarJwt'
 import type { TokenPayload } from '@/types/auth'
 

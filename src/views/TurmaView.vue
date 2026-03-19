@@ -71,8 +71,10 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { turmaService, type Turma, type Turno, type Atividade } from '../service/turmaService'
-import { usuarioService, type Usuario } from '../service/usuarioService'
+import type { Turma, Turno, Atividade } from '@/types/turma'
+import type { Usuario } from '@/types/usuario'
+import { turmaService } from '../service/turmaService'
+import { usuarioService } from '../service/usuarioService'
 
 const turmas = ref<Turma[]>([])
 const usuarios = ref<Usuario[]>([])
