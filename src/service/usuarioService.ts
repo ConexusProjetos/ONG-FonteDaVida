@@ -1,13 +1,5 @@
-import { api } from '../router/api'
-
-export interface Usuario {
-  id: string
-  nome: string
-  email: string
-  role: string
-  dataCriacao: string
-  estaAtivado: boolean
-}
+import { api } from '@/router/api'
+import type { Usuario } from '@/types/usuario'
 
 export const usuarioService = {
   async listarTodos(): Promise<Usuario[]> {

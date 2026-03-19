@@ -1,39 +1,5 @@
 import { api } from '../router/api'
-
-export type Atividade =
-  | 'REFORCO_ESCOLAR'
-  | 'PROGRAMA_60MAIS'
-  | 'FUTEBOL'
-  | 'QUENTINHAS'
-  | 'OUTRO'
-  | string
-
-export type Turno = 'MANHA' | 'TARDE' | 'NOITE'
-
-export interface Turma {
-  id: string
-  nome: string
-  atividade: Atividade
-  turno: Turno
-  educadorId: string
-  ativa: boolean
-}
-
-export interface CriarTurmaDTO {
-  nome: string
-  atividade: Atividade
-  turno: Turno
-  educadorId: string
-  ativa: boolean
-}
-
-export interface EditarTurmaDTO {
-  nome?: string
-  atividade?: Atividade
-  turno?: Turno
-  educadorId?: string
-  ativa?: boolean
-}
+import type { CriarTurmaDTO, EditarTurmaDTO, Turma } from '@/types/turma'
 
 export const turmaService = {
   async listarTodas(): Promise<Turma[]> {

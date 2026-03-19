@@ -1,24 +1,5 @@
 import { api } from '../router/api'
-import type { Atividade } from './turmaService'
-
-export interface Atendimento {
-  id: string
-  pessoaId: string
-  turmaId: string
-  atividade: Atividade
-  dataAtendimento: string
-  presente: boolean
-  observacao?: string
-}
-
-export interface CriarAtendimentoDTO {
-  pessoaId: string
-  turmaId: string
-  atividade: Atividade
-  dataAtendimento: string
-  presente: boolean
-  observacao?: string
-}
+import type { Atendimento, CriarAtendimentoDTO } from '@/types/atendimento'
 
 export const atendimentoService = {
   async listarTodos(): Promise<Atendimento[]> {
