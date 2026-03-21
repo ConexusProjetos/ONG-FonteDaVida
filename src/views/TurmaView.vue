@@ -53,7 +53,9 @@
           <td>{{ turma.nome }}</td>
           <td>{{ turma.atividade }}</td>
           <td>{{ turma.turno }}</td>
-          <td>{{ nomeEducador(turma.educadorId) }}</td>
+          <td>
+            {{ turma.educador?.nome }}
+          </td>
           <td>
             <span :class="turma.ativa ? 'ativa' : 'inativa'">
               {{ turma.ativa ? 'Ativa' : 'Inativa' }}
@@ -82,6 +84,62 @@ const usuarios = ref<Usuario[]>([])
 const editando = ref(false)
 const turmaEditandoId = ref('')
 
+
+////// MOCKS - REMOVER DEPOIS
+// const turmas = ref([])
+// const loading = ref(false)
+
+
+// const mockTurmas = [
+//   {
+//     id: 1,
+//     nome: "Reforço Escolar - Nível 1",
+//     atividade: "reforco_escolar",
+//     turno: "Manhã",
+//     educador: "Prof. Anderson Silva",
+//     ativa: true
+//   },
+//   {
+//     id: 2,
+//     nome: "Futebol Sub-15",
+//     atividade: "futebol",
+//     turno: "Tarde",
+//     educador: "Técnico Rodrigo",
+//     ativa: true
+//   },
+//   {
+//     id: 3,
+//     nome: "Inclusão Digital 60+",
+//     atividade: "programa_60mais",
+//     turno: "Manhã",
+//     educador: "Profa. Eliana",
+//     ativa: true
+//   },
+//   {
+//     id: 4,
+//     nome: "Culinária Comunitária",
+//     atividade: "quentinhas",
+//     turno: "Noite",
+//     educador: "Chef Marcos",
+//     ativa: false
+//   }
+// ]
+
+
+
+// const fetchTurmas = () => {
+//   loading.value = true
+//   // Simula o tempo de resposta da API
+//   setTimeout(() => {
+//     turmas.value = mockTurmas
+//     loading.value = false
+//   }, 400)
+// }
+
+
+
+
+
 const form = ref<{
   nome: string
   atividade: Atividade
@@ -97,7 +155,14 @@ const form = ref<{
 })
 
 async function carregarTurmas() {
-  turmas.value = await turmaService.listarTodas()
+  try{
+     const dados = await turmaService.listarTodas() 
+     console.log('Turmas carregadas:', dados)
+     turmas.value = dados    
+
+  }catch(e){
+      console.error('Erro ao carregar turmas:', e)
+  }
 }
 
 async function carregarUsuarios() {
@@ -110,13 +175,24 @@ function nomeEducador(id: string) {
 }
 
 async function salvarTurma() {
-  if (editando.value) {
-    await turmaService.editar(turmaEditandoId.value, form.value)
-  } else {
-    await turmaService.criar(form.value)
+  try{
+      console.log('Salvando turma:', form.value)
+
+      if(editando.value){
+        await turmaService.editar(turmaEditandoId.value, form.value)
+        console.log('Turma editada com sucesso')
+      }else{
+        await turmaService.criar(form.value)
+        console.log('Turma criada com sucesso')
+      }
+
+      limparFormulario()
+      await carregarTurmas();
+      console.log('Turmas recarregadas após salvar:', turmas.value)
+  }catch(e){
+    console.error('Erro ao salvar turma:', e)
   }
 
-  limparFormulario()
   carregarTurmas()
 }
 
@@ -143,6 +219,15 @@ onMounted(() => {
   carregarTurmas()
   carregarUsuarios()
 })
+
+
+//// Simulação de carregamento com dados mockados
+
+// onMounted(() => {
+//   fetchTurmas()
+// })
+
+
 </script>
 
 <style scoped>

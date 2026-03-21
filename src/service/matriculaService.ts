@@ -1,4 +1,4 @@
-import { api } from '../router/api'
+import  api from '../router/api'
 import type { Matricula, EditarMatriculaDTO, CriarMatriculaDTO } from '../types/matricula'
 
 export const matriculaService = {

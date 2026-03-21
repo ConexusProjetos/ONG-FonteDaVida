@@ -1,3 +1,6 @@
+import type { Usuario } from "./usuario"
+
+
 export type Atividade =
   | 'REFORCO_ESCOLAR'
   | 'PROGRAMA_60MAIS'
@@ -14,6 +17,7 @@ export interface Turma {
   atividade: Atividade
   turno: Turno
   educadorId: string
+  educador?: Usuario
   ativa: boolean
 }
 

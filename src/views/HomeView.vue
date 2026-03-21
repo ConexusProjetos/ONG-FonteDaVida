@@ -1,24 +1,7 @@
 <template>
   <div class="home-wrapper">
-    <!-- ───────────── NAVBAR ───────────── -->
-    <nav class="navbar">
-      <div class="navbar-brand">
-        <span class="brand-icon">🌱</span>
-        <span class="brand-name">Fonte da Vida</span>
-      </div>
-
-      <div class="navbar-links" :class="{ active: menuOpen }">
-        <router-link to="/" @click="menuOpen = false"> Painel </router-link>
-        <router-link to="/turmas" @click="menuOpen = false"> Turmas </router-link>
-        <router-link to="/pessoas" @click="menuOpen = false"> Pessoas </router-link>
-        <router-link to="/admin" @click="menuOpen = false"> Administrador </router-link>
-        <button @click="handleLogout" class="btn-logout">Sair</button>
-      </div>
-
-      <button class="menu-toggle" @click="menuOpen = !menuOpen" :aria-expanded="menuOpen">
-        <span class="hamburger" :class="{ open: menuOpen }"></span>
-      </button>
-    </nav>
+    
+    
     <section class="hero">
       <div class="hero-content">
         <p class="hero-greeting">Olá, {{ usuario?.nome }} 👋</p>
@@ -74,7 +57,7 @@
               <span class="metric-value">{{ totalAtendimentos }}</span>
               <span class="metric-label">Atendimentos Registrados</span>
             </div>
-            <router-link to="/atendimentos" class="metric-link">Ver todos →</router-link>
+            <router-link to="/atendimento" class="metric-link">Ver todos →</router-link>
           </div>
         </section>
 
@@ -84,7 +67,7 @@
           <div class="card card-recentes">
             <div class="card-header">
               <h2 class="card-title">Atendimentos Recentes</h2>
-              <router-link to="/atendimentos" class="card-action">Ver todos →</router-link>
+              <router-link to="/atendimento" class="card-action">Ver todos →</router-link>
             </div>
 
             <div v-if="atendimentosRecentes.length === 0" class="empty-state">
@@ -137,7 +120,7 @@
                 <span class="atalho-icon">＋</span>
                 <span>Cadastrar Pessoa</span>
               </router-link>
-              <router-link to="/atendimentos/novo" class="atalho-btn">
+              <router-link to="/atendimento/novo" class="atalho-btn">
                 <span class="atalho-icon">＋</span>
                 <span>Registrar Atendimento</span>
               </router-link>
@@ -264,140 +247,6 @@ onMounted(() => {
 /* ──────────────────────────────────────
    NAVBAR
 ────────────────────────────────────── */
-.navbar {
-  background: var(--white);
-  padding: 0 2rem;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: var(--shadow-sm);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  border-bottom: 3px solid var(--green-400);
-}
-
-.navbar-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.brand-icon {
-  font-size: 26px;
-  line-height: 1;
-}
-
-.brand-name {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--green-700);
-  letter-spacing: -0.3px;
-}
-
-.navbar-links {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.navbar-links a {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  text-decoration: none;
-  color: var(--gray-700);
-  font-size: 14px;
-  font-weight: 500;
-  padding: 8px 14px;
-  border-radius: var(--radius-sm);
-  transition:
-    background 0.15s,
-    color 0.15s;
-}
-
-.navbar-links a:hover,
-.navbar-links a.router-link-active {
-  background: var(--green-50);
-  color: var(--green-700);
-}
-
-.navbar-links a.router-link-exact-active {
-  background: var(--green-200);
-  color: var(--green-900);
-  font-weight: 600;
-}
-
-.nav-icon {
-  font-size: 15px;
-}
-
-.btn-logout {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--red-50);
-  color: var(--red-600);
-  border: 1px solid #ffcdd2;
-  padding: 8px 16px;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  margin-left: 8px;
-  transition: background 0.15s;
-}
-
-.btn-logout:hover {
-  background: #ffcdd2;
-}
-
-/* hamburguer */
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-}
-
-.hamburger,
-.hamburger::before,
-.hamburger::after {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--green-700);
-  border-radius: 2px;
-  transition:
-    transform 0.2s,
-    opacity 0.2s;
-  position: relative;
-}
-
-.hamburger::before,
-.hamburger::after {
-  content: '';
-  position: absolute;
-  left: 0;
-}
-.hamburger::before {
-  top: -7px;
-}
-.hamburger::after {
-  top: 7px;
-}
-
-.hamburger.open {
-  background: transparent;
-}
-.hamburger.open::before {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-.hamburger.open::after {
-  transform: rotate(-45deg) translate(5px, -5px);
-}
 
 /* ──────────────────────────────────────
    HERO

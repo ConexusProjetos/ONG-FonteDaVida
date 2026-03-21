@@ -1,4 +1,4 @@
-import { api } from '@/router/api'
+import  api  from '@/router/api'
 import type { Usuario } from '@/types/usuario'
 
 export const usuarioService = {

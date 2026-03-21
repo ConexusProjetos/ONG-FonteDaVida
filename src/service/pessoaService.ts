@@ -1,4 +1,4 @@
-import { api } from '../router/api'
+import api from '../router/api'
 import type { Pessoa, CriarPessoaDTO, EditarPessoaDTO } from '@/types/pessoa'
 
 export const pessoaService = {

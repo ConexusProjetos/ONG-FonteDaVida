@@ -5,6 +5,7 @@ import CadastroView from '@/views/CadastroView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import PessoasView from '@/views/PessoasView.vue'
 import TurmaView from '@/views/TurmaView.vue'
+import AtendimentoView from '@/views/AtendimentoView.vue'
 import { useAuthStore } from '@/stores/auth'
 import { Role } from '@/types/role'
 import AdminView from '@/views/AdminView.vue'
@@ -44,6 +45,12 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: AdminView,
+      meta: { requiresRole: Role.ADMIN },
+    },
+    {
+      path: '/atendimento',
+      name: 'atendimento',
+      component: AtendimentoView,
       meta: { requiresRole: Role.ADMIN },
     },
     {
