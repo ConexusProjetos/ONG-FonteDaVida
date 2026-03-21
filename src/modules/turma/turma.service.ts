@@ -50,9 +50,10 @@ export class TurmaService {
     }
     return await this.prismaService.turma.update({ where: { id: id }, data: body });
   }
+
   async listarTurmas(usuario: TokenPayload) {
-    if (usuario.role === Role.ADMIN) {
-      const turmas = await this.prismaService.turma.findMany({
+    if (usuario.role !== Role.ADMIN) {
+      return await this.prismaService.turma.findMany({
         where: { educadorId: usuario.id },
         include: {
           educador: {
@@ -67,7 +68,20 @@ export class TurmaService {
           },
         },
       });
-      return turmas;
     }
+    return await this.prismaService.turma.findMany({
+      include: {
+        educador: {
+          select: {
+            nome: true,
+            email: true,
+            id: true,
+            dataCriacao: true,
+            role: true,
+            estaAtivado: true,
+          },
+        },
+      },
+    });
   }
 }
