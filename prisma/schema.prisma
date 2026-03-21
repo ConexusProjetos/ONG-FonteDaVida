@@ -47,7 +47,7 @@ model Usuario {
   email        String        @unique
   dataCriacao  DateTime      @default(now())
   role         Role          @default(VISUALIZADOR)
-  estaAtivado  Boolean       @default(true)
+  estaAtivado  Boolean       @default(false)
   atendimentos Atendimento[]
   pessoas      Pessoa[]
   turmas       Turma[]

@@ -3,10 +3,10 @@ import { AuthGuard } from '../auth/auth.guard';
 import { RolesGuard } from 'src/common/roles/roles.guard';
 import { Roles } from 'src/common/roles/roles.decorator';
 import { Role } from 'src/common/enums/permissoes';
-import { PessoaCadastroDto, PessoaEdicaoDto } from './dtos/pessoa';
+import { PessoaCadastroDto, PessoaEdicaoDto } from './dtos/pessoa.dto';
 import { User } from '../usuario/usuario.decorator';
 import { PessoaService } from './pessoa.service';
-import { TokenPayload } from '../auth/dtos/auth';
+import { TokenPayload } from '../auth/dtos/auth.dto';
 
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 

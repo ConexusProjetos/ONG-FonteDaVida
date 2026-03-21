@@ -1,5 +1,5 @@
 import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
-import { AuthLoginDTO, AuthCadastroDTO, TokenPayload } from './dtos/auth';
+import { AuthLoginDTO, AuthCadastroDTO, TokenPayload } from './dtos/auth.dto';
 import { PrismaService } from '../../infra/prisma/prisma.service';
 import { BycriptService } from '../../common/bycript/bycript.service';
 import { JwtService } from '@nestjs/jwt';
@@ -39,6 +39,9 @@ export class AuthService {
     });
     if (!usuarioEncontrado) {
       throw new UnauthorizedException('Credenciais inválidas');
+    }
+    if (!usuarioEncontrado.estaAtivado) {
+      throw new UnauthorizedException('Você não está ativado, espere o admin aceitar você!');
     }
     const senhaEstaCorreta = await this.bycriptService.comparePasswords(
       body.senha,

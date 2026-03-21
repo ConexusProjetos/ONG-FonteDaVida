@@ -5,8 +5,8 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/infra/prisma/prisma.service';
-import { MartriculaEdicaoDTO, MatriculaCriacaoDTO } from './dtos/matricula';
-import { TokenPayload } from '../auth/dtos/auth';
+import { MartriculaEdicaoDTO, MatriculaCriacaoDTO } from './dtos/matricula.dto';
+import { TokenPayload } from '../auth/dtos/auth.dto';
 import { Role } from '@prisma/client';
 
 @Injectable()

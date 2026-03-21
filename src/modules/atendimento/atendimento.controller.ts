@@ -3,9 +3,9 @@ import { Roles } from '../../common/roles/roles.decorator';
 import { Role } from '../../common/enums/permissoes';
 import { AuthGuard } from '../auth/auth.guard';
 import { RolesGuard } from '../../common/roles/roles.guard';
-import { atendimentoCriacaoDTO } from './dtos/atendimento';
+import { atendimentoCriacaoDTO } from './dtos/atendimento.dto';
 import { AtendimentoService } from './atendimento.service';
-import { TokenPayload } from '../auth/dtos/auth';
+import { TokenPayload } from '../auth/dtos/auth.dto';
 import { User } from '../usuario/usuario.decorator';
 
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';

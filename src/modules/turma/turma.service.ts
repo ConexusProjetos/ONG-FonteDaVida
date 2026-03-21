@@ -5,9 +5,9 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/infra/prisma/prisma.service';
-import { TurmaCadastroDto } from './dtos/turma';
+import { TurmaCadastroDto } from './dtos/turma.dto';
 import { Role } from '@prisma/client';
-import { TokenPayload } from '../auth/dtos/auth';
+import { TokenPayload } from '../auth/dtos/auth.dto';
 @Injectable()
 export class TurmaService {
   constructor(private prismaService: PrismaService) {}

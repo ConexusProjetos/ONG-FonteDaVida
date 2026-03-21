@@ -4,9 +4,9 @@ import { Roles } from 'src/common/roles/roles.decorator';
 import { Role } from 'src/common/enums/permissoes';
 import { AuthGuard } from '../auth/auth.guard';
 import { RolesGuard } from 'src/common/roles/roles.guard';
-import { MartriculaEdicaoDTO, MatriculaCriacaoDTO } from './dtos/matricula';
+import { MartriculaEdicaoDTO, MatriculaCriacaoDTO } from './dtos/matricula.dto';
 import { User } from '../usuario/usuario.decorator';
-import { TokenPayload } from '../auth/dtos/auth';
+import { TokenPayload } from '../auth/dtos/auth.dto';
 
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 

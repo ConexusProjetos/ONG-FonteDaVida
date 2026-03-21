@@ -6,8 +6,8 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/infra/prisma/prisma.service';
-import { PessoaCadastroDto, PessoaEdicaoDto } from './dtos/pessoa';
-import { TokenPayload } from '../auth/dtos/auth';
+import { PessoaCadastroDto, PessoaEdicaoDto } from './dtos/pessoa.dto';
+import { TokenPayload } from '../auth/dtos/auth.dto';
 import { Role } from '@prisma/client';
 import pessoaUtils from 'src/common/utils/pessoaUtils';
 

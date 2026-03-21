@@ -1,13 +1,17 @@
-import { Controller, Get, UseGuards, Param } from '@nestjs/common';
+import { Controller, Get, UseGuards, Param, Patch, Body } from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
 import { Roles } from '../../common/roles/roles.decorator';
 import { Role } from '../../common/enums/permissoes';
 import { AuthGuard } from '../auth/auth.guard';
 import { RolesGuard } from '../../common/roles/roles.guard';
 
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 
-import { UsuarioResponse } from './dtos/usuario';
+import {
+  MudarRegraDoUsuarioDTO,
+  MudarStatusDoUsuarioDTO,
+  UsuarioResponse,
+} from './dtos/usuario.dto';
 
 @ApiTags('Usuário')
 @ApiBearerAuth()
@@ -31,22 +35,21 @@ export class UsuarioController {
   @Get('buscarUsuarioPorId/:id')
   @Roles(Role.ADMIN)
   @UseGuards(AuthGuard, RolesGuard)
-  @ApiOperation({ summary: 'Buscar usuário por ID' })
-  @ApiParam({
-    name: 'id',
-    description: 'ID do usuário',
-    example: 'b8e3f7c1-4c6e-4c8b-b8a0-5f8f9c1b7e22',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Usuário encontrado',
-    type: UsuarioResponse,
-  })
-  @ApiResponse({
-    status: 404,
-    description: 'Usuário não encontrado',
-  })
   async buscarUsuarioPorId(@Param('id') id: string) {
     return await this.usuarioService.buscarUsuarioPorId(id);
+  }
+
+  @Patch('mudar-status-do-usuario/:id')
+  @Roles(Role.ADMIN)
+  @UseGuards(AuthGuard, RolesGuard)
+  async mudarStatusDoUsuario(@Param('id') id: string, @Body() body: MudarStatusDoUsuarioDTO) {
+    return await this.usuarioService.mudarStatusDoUsuario(id, body);
+  }
+
+  @Patch('mudar-regra-do-usuario/:id')
+  @Roles(Role.ADMIN)
+  @UseGuards(AuthGuard, RolesGuard)
+  async mudarRegraDoUsuario(@Param('id') id: string, @Body() body: MudarRegraDoUsuarioDTO) {
+    return await this.usuarioService.mudarRegraDoUsuario(id, body);
   }
 }
