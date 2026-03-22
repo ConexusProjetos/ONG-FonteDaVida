@@ -1,15 +1,16 @@
-<script setup>
-import {Home, Users, Settings, LogOut, ClipboardList, SquareLibraryIcon } from 'lucide-vue-next'
-import { ref, onMounted, onUnmounted } from 'vue'
+<script setup lang="ts">
+import { Home, Users, Settings, LogOut, ClipboardList, SquareLibraryIcon } from 'lucide-vue-next'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 
-const router = useRouter();
+const router = useRouter()
 
 defineProps({
-  isOpen: Boolean
-});
-
-const menuOpen = ref(false);
+  isOpen: Boolean,
+})
+const authStore = useAuthStore()
+const menuOpen = ref(false)
 
 const closeMenu = () => {
   if (window.innerWidth <= 768) {
@@ -17,81 +18,75 @@ const closeMenu = () => {
   }
 }
 
-
 function handleLogout() {
   authStore.logout()
   router.push('/login')
+
+  onMounted(() => {
+    closeMenu()
+  })
 }
-
-
 </script>
 
-
 <template>
-    
   <aside :class="['sidebar', { 'is-closed': !isOpen }]">
     <nav class="sidebar">
-        <div class="sidebar-brand">
-            <img src="/assets/logo.png" alt="" >
-            <div class="name-label">
-                <span class="brand-name">Fonte da Vida</span>
-                <span class="brand-slogan">Sistema de Gestão</span>
-            </div>
+      <div class="sidebar-brand">
+        <img src="/assets/logo.png" alt="" />
+        <div class="name-label">
+          <span class="brand-name">Fonte da Vida</span>
+          <span class="brand-slogan">Sistema de Gestão</span>
         </div>
+      </div>
 
-        <div class="sidebar-links" :class="{ active: menuOpen }">
-            <router-link to="/" @click="menuOpen = false"> 
-                <Home color="white"/>
-                <span>Painel</span>
-            </router-link>
+      <div class="sidebar-links" :class="{ active: menuOpen }">
+        <router-link to="/" @click="menuOpen = false">
+          <Home color="white" />
+          <span>Painel</span>
+        </router-link>
 
-            <router-link to="/turmas" @click="menuOpen = false">
-              <SquareLibraryIcon color="white"/>
-              <span>Turmas</span>
-            </router-link>
+        <router-link to="/turmas" @click="menuOpen = false">
+          <SquareLibraryIcon color="white" />
+          <span>Turmas</span>
+        </router-link>
 
-            <router-link to="/pessoas" @click="menuOpen = false">
-              <Users color="white" />
-              <span>Pessoas</span>
-            </router-link>
+        <router-link to="/pessoas" @click="menuOpen = false">
+          <Users color="white" />
+          <span>Pessoas</span>
+        </router-link>
 
-            <router-link to="/admin" @click="menuOpen = false">
-              <Settings color="white" />
-              <span>Administrador</span>
-            </router-link>
+        <router-link to="/admin" @click="menuOpen = false">
+          <Settings color="white" />
+          <span>Administrador</span>
+        </router-link>
 
-            <router-link to="/atendimento" @click="menuOpen = false">
-              <ClipboardList color="white" />
-              <span>Atendimentos</span>
-            </router-link>
-            
+        <router-link to="/atendimento" @click="menuOpen = false">
+          <ClipboardList color="white" />
+          <span>Atendimentos</span>
+        </router-link>
 
-            <!-- ajustar logout  -->
-             
-            <button @click="handleLogout" class="btn-logout">
-              <LogOut color="white" />
-              <span>Sair</span>
-            </button>
-        </div>
+        <!-- ajustar logout  -->
 
-        <button class="menu-toggle" @click="menuOpen = !menuOpen" :aria-expanded="menuOpen">
-            <span class="hamburger" :class="{ open: menuOpen }"></span>
+        <button @click="handleLogout" class="btn-logout">
+          <LogOut color="white" />
+          <span>Sair</span>
         </button>
+      </div>
+
+      <button class="menu-toggle" @click="menuOpen = !menuOpen" :aria-expanded="menuOpen">
+        <span class="hamburger" :class="{ open: menuOpen }"></span>
+      </button>
     </nav>
-
   </aside>
-
 </template>
 
-
 <style scoped>
-
 .sidebar {
   background: linear-gradient(180deg, var(--primary-dark) 0%, var(--primary) 100%);
-  color:white;
+  color: white;
   box-shadow: var(--shadow-xl);
   padding: 0 2rem;
-  width:350px;
+  width: 350px;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -103,8 +98,6 @@ function handleLogout() {
   border-bottom: 3px solid var(--green-400);
 
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Animação suave */
-
-  
 }
 
 .is-closed {
@@ -113,7 +106,7 @@ function handleLogout() {
   pointer-events: none; /* Impede cliques enquanto invisível */
 }
 .sidebar-content {
-  width: 350px; 
+  width: 350px;
   padding: 0 2rem;
   display: flex;
   flex-direction: column;
@@ -125,21 +118,15 @@ function handleLogout() {
   display: flex;
   margin: 50px 0px 100px 0px;
 
-
   img {
-    width:100px;
-    
-
-
+    width: 100px;
   }
-
 }
-.name-label{
-    
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    margin-left:10px;
+.name-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10px;
 }
 
 .brand-icon {
@@ -160,12 +147,10 @@ function handleLogout() {
   flex-direction: column;
   gap: 20px;
   width: 100%;
-  
-  span{
-    color:white;
+
+  span {
+    color: white;
   }
-
-
 }
 
 .sidebar-links a {
@@ -182,7 +167,7 @@ function handleLogout() {
     color 0.15s;
 }
 
-.sidebar-links a:hover{
+.sidebar-links a:hover {
   background: black;
 }
 
@@ -202,7 +187,7 @@ function handleLogout() {
   gap: 6px;
   background: var(--red-50);
   color: var(--red-600);
-  border:0;
+  border: 0;
   padding: 8px 10px;
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -218,10 +203,10 @@ function handleLogout() {
 
 /* hamburguer */
 .menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
   padding: 8px;
 }
 
@@ -261,5 +246,4 @@ function handleLogout() {
 .hamburger.open::after {
   transform: rotate(-45deg) translate(5px, -5px);
 }
-
 </style>

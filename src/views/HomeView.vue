@@ -1,7 +1,5 @@
 <template>
   <div class="home-wrapper">
-    
-    
     <section class="hero">
       <div class="hero-content">
         <p class="hero-greeting">Olá, {{ usuario?.nome }} 👋</p>
@@ -92,7 +90,9 @@
                     <p class="atendimento-atividade">
                       {{ formatarAtividade(atendimento.atividade) }}
                     </p>
-                    <p class="atendimento-data">{{ formatarData(atendimento.dataAtendimento) }}</p>
+                    <p class="atendimento-data">
+                      <!-- {{ formatarData(atendimento.dataAtendimento)) }} -->
+                    </p>
                   </div>
                 </div>
                 <span
@@ -138,14 +138,9 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
 import { useDashboard } from '@/composables/useDashboard'
 import { usuarioInformacoes } from '@/utils/userInfos'
 
-const router = useRouter()
-const authStore = useAuthStore()
-const menuOpen = ref(false)
 const usuario = ref()
 
 const {
@@ -186,11 +181,6 @@ const atividadeLabels: Record<string, string> = {
 
 function formatarAtividade(atividade: string): string {
   return atividadeLabels[atividade] ?? atividade
-}
-
-function handleLogout() {
-  authStore.logout()
-  router.push('/login')
 }
 
 onMounted(() => {

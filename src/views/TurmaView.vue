@@ -84,11 +84,9 @@ const usuarios = ref<Usuario[]>([])
 const editando = ref(false)
 const turmaEditandoId = ref('')
 
-
 ////// MOCKS - REMOVER DEPOIS
 // const turmas = ref([])
 // const loading = ref(false)
-
 
 // const mockTurmas = [
 //   {
@@ -125,8 +123,6 @@ const turmaEditandoId = ref('')
 //   }
 // ]
 
-
-
 // const fetchTurmas = () => {
 //   loading.value = true
 //   // Simula o tempo de resposta da API
@@ -135,10 +131,6 @@ const turmaEditandoId = ref('')
 //     loading.value = false
 //   }, 400)
 // }
-
-
-
-
 
 const form = ref<{
   nome: string
@@ -155,13 +147,12 @@ const form = ref<{
 })
 
 async function carregarTurmas() {
-  try{
-     const dados = await turmaService.listarTodas() 
-     console.log('Turmas carregadas:', dados)
-     turmas.value = dados    
-
-  }catch(e){
-      console.error('Erro ao carregar turmas:', e)
+  try {
+    const dados = await turmaService.listarTodas()
+    console.log('Turmas carregadas:', dados)
+    turmas.value = dados
+  } catch (e) {
+    console.error('Erro ao carregar turmas:', e)
   }
 }
 
@@ -169,27 +160,22 @@ async function carregarUsuarios() {
   usuarios.value = await usuarioService.listarTodos()
 }
 
-function nomeEducador(id: string) {
-  const usuario = usuarios.value.find((u) => u.id === id)
-  return usuario ? usuario.nome : '—'
-}
-
 async function salvarTurma() {
-  try{
-      console.log('Salvando turma:', form.value)
+  try {
+    console.log('Salvando turma:', form.value)
 
-      if(editando.value){
-        await turmaService.editar(turmaEditandoId.value, form.value)
-        console.log('Turma editada com sucesso')
-      }else{
-        await turmaService.criar(form.value)
-        console.log('Turma criada com sucesso')
-      }
+    if (editando.value) {
+      await turmaService.editar(turmaEditandoId.value, form.value)
+      console.log('Turma editada com sucesso')
+    } else {
+      await turmaService.criar(form.value)
+      console.log('Turma criada com sucesso')
+    }
 
-      limparFormulario()
-      await carregarTurmas();
-      console.log('Turmas recarregadas após salvar:', turmas.value)
-  }catch(e){
+    limparFormulario()
+    await carregarTurmas()
+    console.log('Turmas recarregadas após salvar:', turmas.value)
+  } catch (e) {
     console.error('Erro ao salvar turma:', e)
   }
 
@@ -220,14 +206,11 @@ onMounted(() => {
   carregarUsuarios()
 })
 
-
 //// Simulação de carregamento com dados mockados
 
 // onMounted(() => {
 //   fetchTurmas()
 // })
-
-
 </script>
 
 <style scoped>

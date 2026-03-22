@@ -14,6 +14,7 @@ export default defineConfigWithVueTs(
         // Isso busca os arquivos relativos ao diretório do arquivo de configuração
         project: ['./tsconfig.eslint.json'],
         tsconfigRootDir: import.meta.dirname,
+        extraFileExtensions: ['.vue'],
       },
     },
   },

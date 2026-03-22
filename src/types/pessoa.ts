@@ -4,7 +4,7 @@ export interface Pessoa {
   tipo: 'BENEFICIARIO' | 'VOLUNTARIO'
   cpf?: string
   telefone?: string
-  dataNascimento?: string
+  dataNascimento?: Date
   sexo?: 'M' | 'F' | 'OUTRO'
   nomeResponsavel?: string
   telefoneResponsavel?: string

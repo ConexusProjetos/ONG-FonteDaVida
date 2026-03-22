@@ -1,4 +1,5 @@
-import  api  from '../router/api'
+import type { AxiosError } from 'axios'
+import api from '../router/api'
 import type { CriarTurmaDTO, EditarTurmaDTO, Turma } from '@/types/turma'
 
 export const turmaService = {
@@ -12,13 +13,14 @@ export const turmaService = {
   async criar(dto: CriarTurmaDTO): Promise<Turma> {
     try {
       const response = await api.post('/turma', dto)
-      console.log("Sucesso:", response.data)
+      console.log('Sucesso:', response.data)
       return response.data
-    } catch (error: any) {
-      console.error("Erro detalhado do Backend:", error.response?.data)
-      
+    } catch (error: unknown) {
+      const axiosError = error as AxiosError
+      console.error('Erro detalhado do Backend:', axiosError.response?.data)
+
       // Lança o erro para o componente TurmaView saber que falhou
-      throw error 
+      throw error
     }
   },
 

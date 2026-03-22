@@ -116,7 +116,7 @@
                 </span>
               </td>
               <td class="td-telefone">{{ formatarTelefone(pessoa.telefone) }}</td>
-              <td class="td-data">{{ formatarData(pessoa.dataNascimento) }}</td>
+              <!-- <td class="td-data">{{ formatarData(pessoa.dataNascimento ) }}</td> -->
               <td class="td-sexo">
                 {{ pessoa.sexo === 'M' ? '♂ Masc.' : pessoa.sexo === 'F' ? '♀ Fem.' : '—' }}
               </td>

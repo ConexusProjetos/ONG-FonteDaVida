@@ -1,4 +1,4 @@
-import  api  from '../router/api'
+import api from '../router/api'
 import type { Atendimento, CriarAtendimentoDTO } from '@/types/atendimento'
 
 export const atendimentoService = {
@@ -12,8 +12,12 @@ export const atendimentoService = {
     return data
   },
 
-  async registrar(dto: CriarAtendimentoDTO): Promise<Atendimento> {
-    const { data } = await api.post('/atendimento', dto)
-    return data
+  async registrar(dto: CriarAtendimentoDTO) {
+    const response = await api.post('/atendimento', dto)
+    return response
+  },
+  async editar(dto: CriarAtendimentoDTO) {
+    const response = await api.put('/atendimento', dto)
+    return response
   },
 }

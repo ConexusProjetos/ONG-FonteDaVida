@@ -2,7 +2,7 @@ import axios from 'axios'
 import router from '@/router'
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL_DEV,
+  baseURL: import.meta.env.VITE_API_URL,
   validateStatus: () => true,
 })
 
@@ -26,6 +26,4 @@ api.interceptors.response.use((response) => {
   return response
 })
 
-
-
-export default api;
+export default api
